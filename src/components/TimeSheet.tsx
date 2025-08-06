@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Clock, Plus, Save, AlertCircle, Lock, Calendar, Timer, ClipboardCheck, CheckCircle, Info, LogIn, LogOut } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { useSupabaseApp } from '../contexts/SupabaseAppContext';
 import { calculateHours, formatTime, formatTimeAsDuration } from '../utils/timeCalculations';
 import { Button } from './ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
 
 export default function TimeSheet() {
-  const { addTimeEntry, updateTimeEntry, state } = useApp();
+  const { addTimeEntry, updateTimeEntry, state } = useSupabaseApp();
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split('T')[0],
     dateOut: '', // Data de saída (quando diferente da data de entrada)

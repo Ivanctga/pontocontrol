@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { BarChart3, Download, TrendingUp, Clock, PlusCircle, Calendar, ArrowUp, ArrowDown, Edit, Trash2, X } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { useSupabaseApp } from '../contexts/SupabaseAppContext';
 import { formatTime, formatTimeAsDuration, getWeeksInMonth, calculateProportionalHours, calculateHoursDifference, calculateHours } from '../utils/timeCalculations';
 import { TimeEntry } from '../types';
 
 export default function Reports() {
-  const { state, getMonthlyReport, updateTimeEntry, deleteTimeEntry } = useApp();
+  const { state, getMonthlyReport, updateTimeEntry, deleteTimeEntry } = useSupabaseApp();
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDB } from '../hooks/useIndexedDB';
+import { useSupabaseDB } from '../hooks/useSupabaseDB';
 import { Database, Calendar, Settings } from 'lucide-react';
-import { useLocalAuth } from '../hooks/useLocalAuth';
+import { useSupabaseAuth } from '../hooks/useSupabaseAuth';
 
 const DBStatus: React.FC = () => {
-  const db = useAppDB();
-  const { user } = useLocalAuth();
+  const db = useSupabaseDB();
+  const { user } = useSupabaseAuth();
   const [status, setStatus] = useState<{
     users: number;
     timeEntries: number;
@@ -17,8 +17,8 @@ const DBStatus: React.FC = () => {
     const checkStatus = async () => {
       try {
         if (user) {
-          // Verifica usuários
-          const users = await db.getUsers();
+          // Para Supabase, não precisamos verificar usuários da mesma forma
+          // pois eles são gerenciados pelo auth.users
           
           // Verifica registros de ponto do usuário atual
           const timeEntries = await db.getTimeEntries(user.id);
@@ -30,7 +30,7 @@ const DBStatus: React.FC = () => {
           const settings = await db.getSettings();
           
           setStatus({
-            users: users.length,
+            users: 1, // Usuário atual
             timeEntries: timeEntries.length,
             schedules: schedules.length,
             settings: !!settings
@@ -51,10 +51,10 @@ const DBStatus: React.FC = () => {
       <div className="bg-white p-4 rounded-lg shadow-md">
         <div className="flex items-center mb-2">
           <Database className="h-5 w-5 mr-2 text-blue-500" />
-          <h3 className="text-lg font-semibold">Banco de Dados Local</h3>
+          <h3 className="text-lg font-semibold">Banco de Dados Supabase</h3>
         </div>
         <p className="text-gray-600">Status: <span className="text-green-500 font-semibold">Ativo</span></p>
-        <p className="text-gray-600">Usuários: {status.users}</p>
+        <p className="text-gray-600">Usuário: Autenticado</p>
       </div>
 
       <div className="bg-white p-4 rounded-lg shadow-md">

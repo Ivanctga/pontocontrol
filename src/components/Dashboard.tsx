@@ -1,12 +1,12 @@
 import React from 'react';
 import { Clock, TrendingUp, Calendar, AlertCircle, BarChart3, User, CheckCircle } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { useSupabaseApp } from '../contexts/SupabaseAppContext';
 import { formatTime } from '../utils/timeCalculations';
 import DBStatus from './DBStatus';
 import { Card, CardHeader, CardTitle, CardContent, StatCard } from './ui/Card';
 
 export default function Dashboard() {
-  const { state } = useApp();
+  const { state } = useSupabaseApp();
   
   // Calculate current month stats
   const currentDate = new Date();

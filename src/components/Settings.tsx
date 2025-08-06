@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Settings as SettingsIcon, Calendar, Clock, Lock, Save, Trash2, AlertTriangle, User, Camera, Key, Building, Info, Mail } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { useSupabaseApp } from '../contexts/SupabaseAppContext';
 import { Settings as SettingsType } from '../types';
 
 export default function Settings() {
-  const { state, updateSettings, clearTimeEntries, updateUserProfile } = useApp();
+  const { state, updateSettings, clearTimeEntries, updateUserProfile } = useSupabaseApp();
   
   // Estados para os campos de configuração
   const [formData, setFormData] = useState({

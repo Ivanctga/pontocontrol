@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, User, LogOut, Settings, Menu, X } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { useSupabaseApp } from '../contexts/SupabaseAppContext';
 
 export default function Header() {
-  const { state, setCurrentView, logout } = useApp();
+  const { state, setCurrentView, logout } = useSupabaseApp();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();

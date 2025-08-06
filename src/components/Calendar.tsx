@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Clock, Calendar as CalendarIcon } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { useSupabaseApp } from '../contexts/SupabaseAppContext';
 import { isWorkDay, getWeekDates, formatTime, getWeeksInMonth, calculateProportionalHours } from '../utils/timeCalculations';
 
 export default function Calendar() {
-  const { state } = useApp();
+  const { state } = useSupabaseApp();
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();

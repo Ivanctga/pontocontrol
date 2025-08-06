@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AppProvider, useApp } from './contexts/AppContext';
+import { SupabaseAppProvider, useSupabaseApp } from './contexts/SupabaseAppContext';
 import AuthPage from './components/AuthPage';
+import SupabaseAuthPage from './components/SupabaseAuthPage';
+import SupabaseResetPasswordPage from './components/SupabaseResetPasswordPage';
 import ResetPasswordPage from './components/ResetPasswordPage';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -14,7 +16,7 @@ import AuthTester from './components/AuthTester';
 
 // Componente protegido que requer autenticação
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { state } = useApp();
+  const { state } = useSupabaseApp();
   
   if (!state.user) {
     return <Navigate to="/" replace />;
@@ -25,7 +27,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 // Componente para o layout principal da aplicação
 const MainLayout = () => {
-  const { state } = useApp();
+  const { state } = useSupabaseApp();
   
   const renderCurrentView = () => {
     switch (state.currentView) {
@@ -64,7 +66,7 @@ const MainLayout = () => {
 };
 
 function AppContent() {
-  const { state } = useApp();
+  const { state } = useSupabaseApp();
 
   // Importar fonte Inter do Google Fonts
   useEffect(() => {
@@ -80,7 +82,9 @@ function AppContent() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={state.user ? <Navigate to="/app" replace /> : <AuthPage />} />
+        <Route path="/" element={state.user ? <Navigate to="/app" replace /> : <SupabaseAuthPage />} />
+        <Route path="/local-auth" element={state.user ? <Navigate to="/app" replace /> : <AuthPage />} />
+        <Route path="/supabase-reset-password" element={<SupabaseResetPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/app" element={
           <ProtectedRoute>
@@ -97,9 +101,9 @@ function AppContent() {
 
 function App() {
   return (
-    <AppProvider>
+    <SupabaseAppProvider>
       <AppContent />
-    </AppProvider>
+    </SupabaseAppProvider>
   );
 }
 
